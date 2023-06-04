@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import ConnectForm from './pages/Connection'
-import Loading from './components/Loading'
-import './App.css'
+import { useState } from "react";
+import ConnectForm from "./pages/Connection";
+import TableComponent from "./pages/Table";
+import Loading from "./components/Loading";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <Loading/>
+      <TableComponent />
+      {/* <Loading/> */}
       {/* <ConnectForm/> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
