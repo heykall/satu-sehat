@@ -1,0 +1,21 @@
+{
+    "resourceType": "DiagnosticReport",
+    "listKey": [
+      "id",
+      "type",
+      "entry",
+      "status",
+      "category",
+      "subject",
+      "encounter",
+      "basedOn",
+      "effectiveDateTime",
+      "issued",
+      "performer",
+      "imagingStudy",
+      "conclusion",
+      "conclusionCode",
+      "result",
+      "note"
+    ]
+}

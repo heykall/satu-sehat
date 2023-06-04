@@ -1,0 +1,16 @@
+{
+    "resourceType": "HealthcareService",
+    "listKey": [
+      "id",
+      "contained",
+      "active",
+      "providedBy",
+      "type",
+      "location",
+      "telecom",
+      "coverageArea",
+      "appointmentRequired",
+      "availableTime",
+      "notAvailable"
+    ]
+}
