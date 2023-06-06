@@ -1,7 +1,8 @@
 import { useState } from "react";
 import ConnectForm from "./pages/Connection";
 import TableComponent from "./pages/Table";
-import Loading from "./components/Loading";
+import WorkerList from "./pages/Worker";
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -12,8 +13,16 @@ function App() {
   const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <ConnectForm/>,
   },
+  {
+    path: "/map-database",
+    element: <TableComponent/>,
+  },
+  {
+    path: "/workers",
+    element: <WorkerList/>
+  }
 ]);
 
   return (

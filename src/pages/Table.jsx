@@ -1,75 +1,144 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Dropdown from '../components/Dropdown';
+import { Patient, DiagnosticReport, HealthcareService } from '../mappingFiles';
 
 const TableComponent = () => {
   const [sourceFields] = useState([
-    'Source Field 1',
-    'Source Field 2',
-    'Source Field 3',
-    'Source Field 4',
-    'Source Field 5',
-    'Source Field 6',
-    'Source Field 7',
-    'Source Field 8',
-    'Source Field 9',
-    'Source Field 10',
-  ]);
+    'id',
+    'name',
+    'address',
+    'telephone',
+    'disease'
+  ])
+
 
   const [resourceCategories] = useState([
-    'Resource Category 1',
-    'Resource Category 2',
-    'Resource Category 3',
-    'Resource Category 4',
-    'Resource Category 5',
-    'Resource Category 6',
-    'Resource Category 7',
-    'Resource Category 8',
-    'Resource Category 9',
-    'Resource Category 10',
+    'Patient',
+    'DiagnosticReport',
+    'HealthcareService'
   ]);
 
-  const [targetFields] = useState([
-    'Target Field 1',
-    'Target Field 2',
-    'Target Field 3',
-    'Target Field 4',
-    'Target Field 5',
-    'Target Field 6',
-    'Target Field 7',
-    'Target Field 8',
-    'Target Field 9',
-    'Target Field 10',
-  ]);
+  const dataPool = useState([Patient, DiagnosticReport, HealthcareService])
 
-  const [selectedFields, setSelectedFields] = useState([]);
+  const [targetFields, setTargetField] = useState(Patient.listKey);
+
+  const [tempData, setTempData] = useState([]);
+  const [selectedCaregory, setSelectedCaregory] = useState(null)
+
+
+  // var sources_result_final = sourceFields.map((field, index) => {
+  //   [field]: ""
+  // } )
+  const [sourcesResultFinal, setSourcesResultFinal] = useState([])
 
   const handleResourceCategoryChange = (index, e) => {
-    setSelectedFields((prevState) => {
+    // handleSelectedCategory(e.target.value)
+    console.log(`${e.target.value}`);
+    // setTargetField(e.target.value.listkey)
+    setTempData((prevState) => {
       const updatedFields = [...prevState];
+
+      var field;
+      if (e.target.value == "Patient") {
+        field = Patient;
+      } else if (e.target.value == "DiagnosticReport") {
+        field = DiagnosticReport;
+      } else if (e.target.value == "HealthcareService") {
+        field = HealthcareService;
+      } else {
+        field = []
+      }
+
       updatedFields[index] = {
         ...updatedFields[index],
+        field: sourceFields[index],
         resourceCategory: e.target.value,
+        resourceField: field,
       };
       return updatedFields;
     });
+
+
+    
   };
 
+  const handleSelectedCategory = (selected) => {
+    setSelectedCaregory(selected)
+  }
+
   const handleTargetFieldChange = (index, e) => {
-    setSelectedFields((prevState) => {
+    // setTempData((prevState) => {
+    //   const updatedFields = [...prevState];
+    //   updatedFields[index] = {
+    //     ...updatedFields[index],
+    //     targetField: e.target.value,
+    //   };
+    //   return updatedFields;
+    // });
+
+
+
+    // setSourcesResultFinal((prevState) => {
+    //   console.log(prevState, "<<< prev state");
+    //   const updatedFields = [...prevState];
+
+    //   console.log("before", updatedFields);
+
+
+    //   updatedFields[sourceFields[index]] = tempData[index].resourceCategory.concat('.' + e.target.value);
+
+
+    //   console.log("after", updatedFields);
+
+    //   return updatedFields;
+    // });
+
+
+    setTempData((prevState) => {
       const updatedFields = [...prevState];
+
+      // updatedFields[index] = {
+      //   ...updatedFields[index],
+      //   resourceCategory: e.target.value,
+      //   resourceField: field,
+      // };
+
       updatedFields[index] = {
         ...updatedFields[index],
-        targetField: e.target.value,
-      };
+        selectedResourceField: e.target.value,
+      }
+
       return updatedFields;
     });
+
   };
 
   const handleSave = () => {
-    // Perform save action with selectedFields data
-    console.log('Selected Fields:', selectedFields);
+    // Perform save action with tempData data
+    // console.log('Selected Fields:', tempData);
+
+    var final = tempData.map((field, index) => {
+      return {[field.field] : field.resourceCategory.concat("." + field.selectedResourceField)}
+    })
+
+    console.log("FINAL RESULT ", final);
+
+    return final
   };
 
+useEffect(()=> {
+  // console.log(dataPool);
+  console.log(tempData, "ini selected field <<<<<");
+
+  console.log(sourcesResultFinal, "ini sources final");
+  // console.log(selectedCaregory);
+}, [tempData, selectedCaregory, targetFields, sourcesResultFinal])
+
   return (
+    <>
+    <div className='flex flex-row mb-4'>
+      <Dropdown/>
+    </div>
     <div>
       <table className="min-w-full border-4 border-gray-300">
         <thead>
@@ -99,15 +168,22 @@ const TableComponent = () => {
               <td className="px-4 py-2 border-b">
                 <select
                   className="w-full p-2 border rounded"
-                  value={selectedFields[index]?.targetField || ''}
+                  // value={tempData[index]?.targetField || ''}
                   onChange={(e) => handleTargetFieldChange(index, e)}
                 >
                   <option value="">Select a target field</option>
-                  {targetFields.map((target, targetIndex) => (
-                    <option key={targetIndex} value={target}>
-                      {target}
+                  {
+                    tempData[index]?.resourceField ?
+                    tempData[index].resourceField.listKey.map((target, targetIndex) => (
+                      <option key={targetIndex} value={target}>
+                        {target}
+                      </option>
+                    ))
+                    :
+                    <option value={null}>
+                      data not found
                     </option>
-                  ))}
+                  }
                 </select>
               </td>
             </tr>
@@ -124,6 +200,7 @@ const TableComponent = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 
