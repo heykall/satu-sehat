@@ -24,7 +24,7 @@ import React from 'react';
 import Logo from '../../public/Satu_Sehat.webp'
 import './loading.css';
 
-const Loading = () => {
+const Loading = ({message}) => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col items-center">
@@ -33,7 +33,7 @@ const Loading = () => {
           src={Logo}
           alt="Loading"
         />
-        <p className="text-teal-500 text-lg font-semibold loading-animation">Loading<span className="loading-dots">...</span></p>
+        <p className="text-teal-500 text-lg font-semibold loading-animation">{message}<span className="loading-dots">...</span></p>
       </div>
     </div>
   );
