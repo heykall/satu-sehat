@@ -1,36 +1,55 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const UseApiCall = (method, url, body = null) => {
+const UseApiCall = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
+  // const fetchData = async (url, method, body = null, headers = {'Content-Type': 'application/json'}) => {
+  //   try {
+  //     setIsLoading(true);
+  //     const config = {
+  //       method,
+  //       url,
+  //       data: body,
+  //       headers,
+  //     };
+  //     const response = await axios(config);
+  //     setData(response.data);
+  //     setError(null);
+  //   } catch (error) {
+  //     setData(null);
+  //     setError(error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // return { isLoading, data, error, fetchData };
+  const fetchData = async (url, method, body = null, headers = {}) => {
     try {
-        let response;
-
-        if (method === "get") {
-            response = await axios.get(url);
-        } else if (method === "post") {
-            response = await axios.post(url, body);
-        } else if (method === "edit") {
-            response = await axios.put(url, body);
-        }
-
-        setData(response.data);
+      setIsLoading(true);
+      const config = {
+        method,
+        url,
+        data: body,
+        headers,
+      };
+      const response = await axios(config);
+      setData(response.data);
+      setError(null);
+      return response.data; // Return the data from the API call
+    } catch (error) {
+      setData(null);
+      setError(error.message);
+      throw error; // Rethrow the error to be caught in the component
+    } finally {
       setIsLoading(false);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
+    }
+  };
 
-    fetchData();
-  }, [method, url, body]);
-
-  return { data, isLoading, error };
+  return { isLoading, data, error, fetchData };
 };
 
 export default UseApiCall;
