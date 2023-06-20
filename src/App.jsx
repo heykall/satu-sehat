@@ -2,6 +2,7 @@ import { useState } from "react";
 import ConnectForm from "./pages/Connection";
 import TableComponent from "./pages/Table";
 import WorkerList from "./pages/Worker";
+import HomePage from "./pages/HomePage";
 
 import {
   createBrowserRouter,
@@ -13,7 +14,7 @@ function App() {
   const router = createBrowserRouter([
   {
     path: "/",
-    element: <ConnectForm/>,
+    element: <HomePage/>,
   },
   {
     path: "/map-database",
@@ -22,6 +23,10 @@ function App() {
   {
     path: "/workers",
     element: <WorkerList/>
+  },
+  {
+    path: "/database",
+    element: <ConnectForm/>
   }
 ]);
 

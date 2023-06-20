@@ -4,6 +4,7 @@ import { Patient, DiagnosticReport, HealthcareService } from '../mappingFiles';
 import UseApiCall from '../utils/UseApiCall';
 import SuccessModal from '../components/Modal';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 const TableComponent = () => {
   const navigate = useNavigate()
@@ -168,85 +169,83 @@ const TableComponent = () => {
   };
 
 useEffect(()=> {
-  console.log(connectionId);
-  console.log(dataMapSend);
-  // console.log(tempData, "ini selected field <<<<<")
-
-  // console.log(sourcesResultFinal, "ini sources final");
-  // console.log(selectedCaregory);
 }, [tempData, selectedCaregory, targetFields, sourcesResultFinal, sourceFields, dataMapSend, connectionId])
 
-  return (
-    <>
-    {showModal && (
-        <SuccessModal message={fetchMessage} onClose={handleCloseModal} />
-      )}
-    <div className='flex flex-row mb-4'>
-      <Dropdown onStateChange={handleChildStateChange}/>
-    </div>
-    <div>
-      <table className="min-w-full border-4 border-gray-300">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 bg-gray-100 border-b">Source Field</th>
-            <th className="px-4 py-2 bg-gray-100 border-b">Resource FHIR Categories</th>
-            <th className="px-4 py-2 bg-gray-100 border-b">Target Field</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sourceFields.map((field, index) => (
-            <tr key={index}>
-              <td className="px-4 py-2 border-b ">{field}</td>
-              <td className="px-4 py-2 border-b">
-                <select
-                  className="w-full p-2 border-teal-400 rounded"
-                  onChange={(e) => handleResourceCategoryChange(index, e)}
-                >
-                  <option value="">Select a category</option>
-                  {resourceCategories.map((category, categoryIndex) => (
-                    <option key={categoryIndex} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td className="px-4 py-2 border-b">
-                <select
-                  className="w-full p-2 border rounded"
-                  // value={tempData[index]?.targetField || ''}
-                  onChange={(e) => handleTargetFieldChange(index, e)}
-                >
-                  <option value="">Select a target field</option>
-                  {
-                    tempData[index]?.resourceField ?
-                    tempData[index].resourceField.listKey.map((target, targetIndex) => (
-                      <option key={targetIndex} value={target}>
-                        {target}
-                      </option>
-                    ))
-                    :
-                    <option value={null}>
-                      data not found
-                    </option>
-                  }
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="flex justify-end mt-4">
-        <button
-          className="px-4 py-2 mr-2 bg-teal-500 text-white rounded hover:bg-teal-600 focus:outline-none focus:bg-teal-600"
-          onClick={handleSave}
-        >
-          Save
-        </button>
+  if(isLoading) {
+    return <Loading message={'Fetching the Database Table...'}/>;
+  } else {
+    return (
+      <>
+      {showModal && (
+          <SuccessModal message={fetchMessage} onClose={handleCloseModal} />
+        )}
+      <div className='flex flex-row mb-4'>
+        <Dropdown onStateChange={handleChildStateChange}/>
       </div>
-    </div>
-    </>
-  );
+      <div>
+        <table className="min-w-full border-4 border-gray-300">
+          <thead>
+            <tr>
+              <th className="px-4 py-2 bg-gray-100 border-b">Source Field</th>
+              <th className="px-4 py-2 bg-gray-100 border-b">Resource FHIR Categories</th>
+              <th className="px-4 py-2 bg-gray-100 border-b">Target Field</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sourceFields.map((field, index) => (
+              <tr key={index}>
+                <td className="px-4 py-2 border-b ">{field}</td>
+                <td className="px-4 py-2 border-b">
+                  <select
+                    className="w-full p-2 border-teal-400 rounded"
+                    onChange={(e) => handleResourceCategoryChange(index, e)}
+                  >
+                    <option value="">Select a category</option>
+                    {resourceCategories.map((category, categoryIndex) => (
+                      <option key={categoryIndex} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="px-4 py-2 border-b">
+                  <select
+                    className="w-full p-2 border rounded"
+                    // value={tempData[index]?.targetField || ''}
+                    onChange={(e) => handleTargetFieldChange(index, e)}
+                  >
+                    <option value="">Select a target field</option>
+                    {
+                      tempData[index]?.resourceField ?
+                      tempData[index].resourceField.listKey.map((target, targetIndex) => (
+                        <option key={targetIndex} value={target}>
+                          {target}
+                        </option>
+                      ))
+                      :
+                      <option value={null}>
+                        data not found
+                      </option>
+                    }
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+  
+        <div className="flex justify-end mt-4">
+          <button
+            className="px-4 py-2 mr-2 bg-teal-500 text-white rounded hover:bg-teal-600 focus:outline-none focus:bg-teal-600"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      </>
+    );
+  }
 };
 
 export default TableComponent;

@@ -46,9 +46,6 @@ useEffect(() => {
   }
 },[userCred])
 
-if (isLoading) {
-  return <Loading message={'Get the list Tables...'}/>;
-} else {
   return (
     <div>
       <select className="border border-gray-300 rounded px-4 py-2" value={selected} onChange={handleOptionChange}>
@@ -63,8 +60,7 @@ if (isLoading) {
         }
       </select>
     </div>
-  );
-}
+  )
 };
 
 export default Dropdown;   
