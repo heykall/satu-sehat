@@ -3,6 +3,7 @@ import ConnectForm from "./pages/Connection";
 import TableComponent from "./pages/Table";
 import WorkerList from "./pages/Worker";
 import HomePage from "./pages/HomePage";
+import Cdc from "./pages/Cdc";
 
 import {
   createBrowserRouter,
@@ -27,7 +28,11 @@ function App() {
   {
     path: "/database",
     element: <ConnectForm/>
-  }
+  },
+  {
+    path: "/cdc-worker",
+    element: <Cdc/>
+  },
 ]);
 
   return (
