@@ -4,6 +4,7 @@ import TableComponent from "./pages/Table";
 import WorkerList from "./pages/Worker";
 import HomePage from "./pages/HomePage";
 import Cdc from "./pages/Cdc";
+import CdcEdit from "./pages/CdcEdit";
 
 import {
   createBrowserRouter,
@@ -24,6 +25,10 @@ function App() {
   {
     path: "/workers",
     element: <WorkerList/>
+  },
+  {
+    path: "/workers/:id",
+    element: <CdcEdit/>
   },
   {
     path: "/database",

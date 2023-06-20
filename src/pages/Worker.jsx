@@ -4,9 +4,13 @@ import UseApiCall from '../utils/UseApiCall';
 
 
 const WorkerList = () => {
-    const location = useLocation()
-    const connection_id = location.state.connectionId
-    const [workers,  setWorkers] = useState([]);
+    // const location = useLocation()
+    // const connection_id = location.state.connectionId
+    const [workers,  setWorkers] = useState([
+      {service_name: 'Test',
+      table_name: 'DB name',
+    is_running: true}
+    ]);
     const { isLoading, data, error, fetchData } = UseApiCall();
 
     const handleFetchWorker = async () => {
@@ -39,6 +43,13 @@ const WorkerList = () => {
         </div>
       ))}
     </div> */}
+    <div className="absolute top-0 right-0">
+  <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Worker A</button>
+  <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Database Puskesmas Kalibata</button>
+</div>
+<div className="absolute top-0 right-0 mt-12">
+  <button className="flex flex-col m-2 bg-cyan-500 text-sm text-white px-2 py-1">Create New Worker</button>
+</div>
     <div className="flex flex-wrap justify-center">
         {
             workers.length ? workers.map((worker) => (

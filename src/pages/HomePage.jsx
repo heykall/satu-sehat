@@ -13,7 +13,7 @@ const HomePage = () => {
   const handleCardClick = (card) => {
     if (card === 'cdc') {
       // Action for CDC Worker card
-      navigate('cdc-worker')
+      navigate('workers')
     } else if (card === 'data-integration') {
       // Action for Data Integration Tool card
       console.log('Data Integration Tool clicked');

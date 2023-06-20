@@ -4,7 +4,7 @@ import Toast from '../components/Toast';
 import UseApiCall from '../utils/UseApiCall';
 import { useNavigate } from 'react-router-dom';
 
-const Cdc = () => {
+const CdcEdit = () => {
   const navigate = useNavigate();
   const { isLoading, data, error, fetchData } = UseApiCall();
   const [errors, setErrors] = useState({});
@@ -156,4 +156,4 @@ const Cdc = () => {
   }
 };
 
-export default Cdc;
+export default CdcEdit;
