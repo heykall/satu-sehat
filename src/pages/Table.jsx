@@ -47,10 +47,10 @@ const TableComponent = () => {
       } else {
         field = [];
       }
-
+      console.log(updatedFields);
+      
       updatedFields[index] = {
         ...updatedFields[index],
-        field: sourceFields[index],
         resourceCategory: e.target.value,
         resourceField: field
       };
@@ -106,6 +106,7 @@ const TableComponent = () => {
     var final = tempData.map((field, index) => {
       return { [field.field]: field.resourceCategory.concat('.' + field.selectedResourceField) };
     });
+    console.log(final);
 
     let dataSend = { connection_id: connectionId, table_name: '', fields: final };
 
@@ -123,7 +124,7 @@ const TableComponent = () => {
   useEffect(() => {
     if (sourceFields.length) {
       const newMap = sourceFields.map(field => {
-        return {field: field, resourceCategory: '', resourceField: {}}
+        return {field: field, resourceCategory: '', resourceField: []}
       })
       setTempData(newMap)
       console.log(newMap);
@@ -176,15 +177,15 @@ const TableComponent = () => {
                       onChange={(e) => handleTargetFieldChange(index, e)}
                     >
                       <option value="">Select a target field</option>
-                      {/* {tempData[index]?.resourceField ? (
-                        tempData[index].resourceField.listKey.map((target, targetIndex) => (
+                      {tempData[index]?.resourceField ? (
+                        tempData[index].resourceField.listKey?.map((target, targetIndex) => (
                           <option key={targetIndex} value={target}>
                             {target}
                           </option>
                         ))
                       ) : (
                         <option value={null}>data not found</option>
-                      )} */}
+                      )}
                     </select>
                   </td>
                   <td className="px-4 py-2 border-b">
