@@ -61,7 +61,7 @@ const Cdc = () => {
   }, [data, error, isLoading, fields]);
 
   if (isLoading) {
-    return <Loading message={'Connecting to Database...'} />;
+    return <Loading message={'Creating worker..'} />;
   } else {
     return (
       <>
@@ -95,7 +95,7 @@ const Cdc = () => {
           </div>
         )}
         <div className="flex flex-col items-center max-w-screen">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">CDC Settings</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Creare a Worker</h1>
           <form className="flex flex-col space-y-4 w-80" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -147,9 +147,9 @@ const Cdc = () => {
               Save
             </button>
           </form>
-          <button className="flex flex-col items-center space-y-4 w-80 mt-10 px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
+          {/* <button className="flex flex-col items-center space-y-4 w-80 mt-10 px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
             Turn Off Worker
-          </button>
+          </button> */}
         </div>
       </>
     );
