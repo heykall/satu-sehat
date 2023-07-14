@@ -44,16 +44,27 @@ const TableComponent = () => {
         field = DiagnosticReport;
       } else if (e.target.value === 'HealthcareService') {
         field = HealthcareService;
-      } else {
+      } else if(e.target.value === 'Extensions') {
+        field = []
+      }else {
         field = [];
       }
-      console.log(updatedFields);
       
-      updatedFields[index] = {
-        ...updatedFields[index],
-        resourceCategory: e.target.value,
-        resourceField: field
-      };
+      if (e.target.value === 'Extensions') {
+        updatedFields[index] = {
+          ...updatedFields[index],
+          resourceCategory: e.target.value,
+          resourceField: field,
+          selectedResourceField: updatedFields[index].field
+        };
+      } else {
+        updatedFields[index] = {
+          ...updatedFields[index],
+          resourceCategory: e.target.value,
+          resourceField: field
+        };
+      }
+      
       return updatedFields;
     });
   };
@@ -92,6 +103,22 @@ const TableComponent = () => {
       const updatedFields = [...prevState];
       const duplicatedRow = { ...updatedFields[index] }; // Duplicate the selected row
       updatedFields.splice(index + 1, 0, duplicatedRow); // Insert the duplicated row at the next index
+      return updatedFields;
+    });
+  };
+
+  // handle delete row
+
+  const removeRow = (index) => {
+    setSourceFields((prevState) => {
+      const updatedFields = [...prevState];
+      updatedFields.splice(index, 1); // Remove the field at the specified index
+      return updatedFields;
+    });
+  
+    setTempData((prevState) => {
+      const updatedFields = [...prevState];
+      updatedFields.splice(index, 1); // Remove the duplicated row at the specified index
       return updatedFields;
     });
   };
@@ -169,6 +196,7 @@ const TableComponent = () => {
                           {category}
                         </option>
                       ))}
+                      <option value="Extensions">Extensions</option>
                     </select>
                   </td>
                   <td className="px-4 py-2 border-b">
@@ -186,13 +214,31 @@ const TableComponent = () => {
                       ) : (
                         <option value={null}>data not found</option>
                       )}
+                      {/* {tempData[index]?.resourceCategories === 'Extensions' ? (
+                        <option value={}></option>
+                      ) : (
+                        <option value={null}>data not found</option>
+                      )} */}
                     </select>
                   </td>
-                  <td className="px-4 py-2 border-b">
+                  {/* <td className="px-2 py-2 border-b">
+                    <button className="text-blue-500" onClick={() => removeRow(index)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6" />
+                    </svg>
+                    </button>
+                  </td> */}
+                  {/* <td className="px-2 py-2 border-b">
                     <button className="text-blue-500" onClick={() => handleAddRow(index)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
+                        className="h-4 w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -200,7 +246,7 @@ const TableComponent = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                       </svg>
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

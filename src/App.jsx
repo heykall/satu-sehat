@@ -5,6 +5,10 @@ import WorkerList from "./pages/Worker";
 import HomePage from "./pages/HomePage";
 import Cdc from "./pages/Cdc";
 import CdcEdit from "./pages/CdcEdit";
+import DataIntegration from "./pages/DataIntegration";
+import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
+import RegistrationForm from "./pages/Register";
 
 import {
   createBrowserRouter,
@@ -16,7 +20,7 @@ function App() {
   const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage/>,
+    element: <Home/>,
   },
   {
     path: "/map-database",
@@ -38,6 +42,18 @@ function App() {
     path: "/cdc-worker",
     element: <Cdc/>
   },
+  {
+    path: "/data-integration",
+    element: <DataIntegration/>
+  },
+  {
+    path: "/login",
+    element: <LoginPage/>
+  },
+  {
+    path:"/register",
+    element: <RegistrationForm/>
+  }
 ]);
 
   return (

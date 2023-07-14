@@ -12,16 +12,13 @@ const HomePage = () => {
 
   const handleCardClick = (card) => {
     if (card === 'cdc') {
-      // Action for CDC Worker card
       navigate('workers')
     } else if (card === 'data-integration') {
-      // Action for Data Integration Tool card
+      navigate('data-integration')
       console.log('Data Integration Tool clicked');
     } else if (card === 'data-mapping') {
-      // Action for Data Mapping Tools card
       navigate('/map-database')
     } else if (card === 'database') {
-      // Action for Database Connect card
       navigate('/database')
     }
   };

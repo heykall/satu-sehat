@@ -4,7 +4,7 @@ import Toast from '../components/Toast';
 import UseApiCall from '../utils/UseApiCall';
 import { useNavigate } from 'react-router-dom';
 
-const Cdc = () => {
+const DataIntegration = () => {
   const navigate = useNavigate();
   const { isLoading, data, error, fetchData } = UseApiCall();
   const [errors, setErrors] = useState({});
@@ -47,10 +47,8 @@ const Cdc = () => {
       errors.service_name = 'Healthcare Service Name is required';
     }
 
-    // Validate time format (hour:minute)
-    const pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
-    if (fields.time === 'custom' && !pattern.test(fields.customTime)) {
-      errors.time = 'Invalid time format';
+    if (!fields.service_name) {
+      errors.service_name = 'Healthcare Service Name is required';
     }
 
     return errors;
@@ -95,13 +93,26 @@ const Cdc = () => {
           </div>
         )}
         <div className="flex flex-col items-center max-w-screen">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Create a Worker</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Data integration settings</h1>
           <form className="flex flex-col space-y-4 w-80" onSubmit={handleSubmit}>
+          <div className="relative w-80">
+              <select
+                name="time"
+                value={fields.time}
+                onChange={handleInputChange}
+                className="px-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+              >
+                <option value="">Select Environtment</option>
+                <option value="development">Development</option>
+                <option value="staging">Staging</option>
+                <option value="production">Production</option>
+              </select>
+            </div>
             <input
               type="text"
               name="service_name"
               value={fields.service_name}
-              placeholder="Worker Name"
+              placeholder="Client Key"
               onChange={handleInputChange}
               className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 ${
                 errors.service_name ? 'border-red-500' : ''
@@ -110,36 +121,21 @@ const Cdc = () => {
             {errors.service_name && (
               <p className="text-red-500 text-sm">{errors.service_name}</p>
             )}
-            <div className="relative w-80">
-              <select
-                name="time"
-                value={fields.time}
-                onChange={handleInputChange}
-                className="px-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
-              >
-                <option value="">Select Time</option>
-                <option value="00:00">00:00</option>
-                <option value="01:00">01:00</option>
-                <option value="02:00">02:00</option>
-                {/* Add more hours as needed */}
-                <option value="custom">Custom Time</option>
-              </select>
-              {fields.time === 'custom' && (
-                <div className="relative w-80">
-                  <input
-                    type="text"
-                    name="customTime"
-                    value={fields.customTime}
-                    placeholder="Custom Time (hh:mm)"
-                    onChange={handleInputChange}
-                    className={`px-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 ${
-                      errors.time ? 'border-red-500' : ''
-                    }`}
-                  />
-                  {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
-                </div>
-              )}
-            </div>
+
+            <input
+              type="text"
+              name="service_name"
+              value={fields.service_name}
+              placeholder="Secret Key"
+              onChange={handleInputChange}
+              className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 ${
+                errors.service_name ? 'border-red-500' : ''
+              }`}
+            />
+            {errors.service_name && (
+              <p className="text-red-500 text-sm">{errors.service_name}</p>
+            )}
+            
             <button
               type="submit"
               className="px-4 py-2 bg-teal-500 text-white font-semibold rounded-md hover:bg-teal-600 focus:outline-none focus:bg-teal-600"
@@ -156,4 +152,4 @@ const Cdc = () => {
   }
 };
 
-export default Cdc;
+export default DataIntegration;
