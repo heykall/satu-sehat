@@ -9,6 +9,7 @@ import DataIntegration from "./pages/DataIntegration";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import RegistrationForm from "./pages/Register";
+import MedicalServices from "./pages/MedicalServices";
 
 import {
   createBrowserRouter,
@@ -53,7 +54,11 @@ function App() {
   {
     path:"/register",
     element: <RegistrationForm/>
-  }
+  },
+  {
+    path:"/medical-services",
+    element: <MedicalServices/>
+  },
 ]);
 
   return (
