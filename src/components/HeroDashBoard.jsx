@@ -4,14 +4,14 @@ const HeroSection = () => {
   return (
     <section className='flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-16'>
       <div className='flex sm:w-1/2 flex-col gap-1.5'>
-        <h1 className='text-[28px] md:text-[52px] leading-snug font-semibold'>
+        <h1 className='text-left text-[28px] md:text-[52px] leading-snug font-semibold'>
           Solution for standardized your health services data
         </h1>
-        <p className='font-light mb-5 sm:text-[20px] text-[#8C8C8C]'>
+        <p className='text-left font-light mb-5 sm:text-[20px] text-[#8C8C8C]'>
         A database adapter application that serves as a global data hub, connecting and streaming information between local databases and international FHIR standards.
         </p>
         <ButtonLink
-          path='/'
+          path='/login'
           text='Get Started'
           width={'w-full sm:w-1/3'}
         />

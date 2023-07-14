@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const RegistrationForm = () => {
   const [accountType, setAccountType] = useState('personal');
@@ -17,14 +18,14 @@ const RegistrationForm = () => {
           <div className="flex flex-col justify-center flex-1 px-4 py-12 overflow-hidden sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div className="w-full max-w-xl mx-auto lg:w-96">
               <div>
-                <h2 className="mt-6 text-3xl font-extrabold text-neutral-600">Sign up.</h2>
+                <h2 className="flex justify-left mt-6 text-3xl font-extrabold text-neutral-600">Sign up.</h2>
               </div>
 
               <div className="mt-8">
                 <div className="mt-6">
                   <form action="#" method="POST" className="space-y-6">
                     <div className="mb-4">
-                      <label className="block mb-2 font-medium">Account Type</label>
+                      <label className="flex justify-left block mb-2 font-medium">Account Type</label>
                       <div className="flex gap-4">
                         <button
                           type="button"
@@ -50,7 +51,7 @@ const RegistrationForm = () => {
                     {accountType === 'personal' ? (
                       <div>
                         <div className="mb-4">
-                          <label className="block mb-2 font-medium" htmlFor="name">
+                          <label className="flex justify-left block mb-2 font-medium" htmlFor="name">
                             Name
                           </label>
                           <input
@@ -62,7 +63,7 @@ const RegistrationForm = () => {
                           />
                         </div>
                         <div className="mb-4">
-                          <label className="block mb-2 font-medium" htmlFor="email">
+                          <label className="flex justify-left block mb-2 font-medium" htmlFor="email">
                             Email
                           </label>
                           <input
@@ -76,7 +77,7 @@ const RegistrationForm = () => {
                           />
                         </div>
                         <div className="mb-4">
-                          <label className="block mb-2 font-medium" htmlFor="password">
+                          <label className="flex justify-left block mb-2 font-medium" htmlFor="password">
                             Password
                           </label>
                           <input
@@ -91,7 +92,7 @@ const RegistrationForm = () => {
                     ) : (
                       <div>
                         <div className="mb-4">
-                          <label className="block mb-2 font-medium" htmlFor="associationName">
+                          <label className="flex justify-left block mb-2 font-medium" htmlFor="associationName">
                             Association Name
                           </label>
                           <input
@@ -103,7 +104,7 @@ const RegistrationForm = () => {
                           />
                         </div>
                         <div className="mb-4">
-                          <label className="block mb-2 font-medium" htmlFor="contactPerson">
+                          <label className="flex justify-left block mb-2 font-medium" htmlFor="contactPerson">
                             Contact Person
                           </label>
                           <input
@@ -115,7 +116,7 @@ const RegistrationForm = () => {
                           />
                         </div>
                         <div className="mb-4">
-                          <label className="block mb-2 font-medium" htmlFor="associationEmail">
+                          <label className="flex justify-left block mb-2 font-medium" htmlFor="associationEmail">
                             Association Email
                           </label>
                           <input
@@ -129,7 +130,7 @@ const RegistrationForm = () => {
                           />
                         </div>
                         <div className="mb-4">
-                          <label className="block mb-2 font-medium" htmlFor="associationPassword">
+                          <label className="flex justify-left block mb-2 font-medium" htmlFor="associationPassword">
                             Password
                           </label>
                           <input
@@ -145,9 +146,9 @@ const RegistrationForm = () => {
 
                     <div className="flex items-center justify-between">
                       <div className="text-sm">
-                        <a href="#" className="font-medium text-teal-500 hover:text-teal-400">
+                        <Link to="/login" className="font-medium text-teal-500 hover:text-teal-400">
                           Sign in instead
-                        </a>
+                        </Link>
                       </div>
                     </div>
 

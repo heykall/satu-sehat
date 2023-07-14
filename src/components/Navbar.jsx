@@ -10,13 +10,15 @@ const Navbar = () => {
             FHIR Adapter.
         </Link>
         <div className='flex flex-1 justify-end items-center'>
-          
+
+                <Link to='/login'>
                 <button
                   className='bg-teal-400 px-8 py-2 rounded text-white'
-                  to='/signin'
+                  
                 >
                   Login
                 </button>
+                </Link>
         </div>
       </nav>
     </header>
