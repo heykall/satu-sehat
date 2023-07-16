@@ -1,5 +1,6 @@
 import { FaCog } from 'react-icons/fa';
 
+
 const MedicalServices = () => {
     return (
         <>

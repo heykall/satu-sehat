@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 const Navbar = () => {
   
   return (
-    <header className='w-full h-14 fixed shadow-md bg-white'>
-      <nav className='w-full sm:px-[120px] flex justify-between items-center'>
+    <header className='w-full h-14 max-h-14 fixed shadow-md bg-white'>
+      <nav className='w-full max-h-14 sm:px-[120px] flex justify-between items-center'>
         <Link to='/' className='text-[28px] font-semibold text-teal-500'>
             FHIR Adapter.
         </Link>
