@@ -10,14 +10,9 @@ const DataIntegration = () => {
   const [errors, setErrors] = useState({});
   
   const [fields, setFields] = useState({
-    service_name: '',
-    db_name: '',
-    host: '',
-    port: '',
-    username: '',
-    password: '',
-    time: '',
-    customTime: '',
+    environment: '',
+    client_id: '',
+    client_secret: ''
   });
 
   const handleInputChange = (e) => {
@@ -30,13 +25,20 @@ const DataIntegration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(fields);
-      console.log('masuk');
-    } else {
-      setErrors(validationErrors);
-    }
+    fetchData(
+      import.meta.env.VITE_BASE_URL + "/satu-sehat?healthcare_id=" + localStorage.getItem('id'),
+      "get",
+      null,
+      {
+          access_token: JSON.parse(localStorage.getItem('user-token'))
+      }
+    ).then(({data}) => {
+      // setHealthService(data)
+      navigate('/dashboard-worker/' + localStorage.getItem('id'))
+    })
+    .catch((e) => {
+      console.log(e)
+    })
   };
 
   const validateForm = () => {
@@ -97,8 +99,8 @@ const DataIntegration = () => {
           <form className="flex flex-col space-y-4 w-80" onSubmit={handleSubmit}>
           <div className="relative w-80">
               <select
-                name="time"
-                value={fields.time}
+                name="environment"
+                value={fields.environment}
                 onChange={handleInputChange}
                 className="px-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
@@ -110,8 +112,8 @@ const DataIntegration = () => {
             </div>
             <input
               type="text"
-              name="service_name"
-              value={fields.service_name}
+              name="client_id"
+              value={fields.client_id}
               placeholder="Client Key"
               onChange={handleInputChange}
               className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 ${
@@ -124,8 +126,8 @@ const DataIntegration = () => {
 
             <input
               type="text"
-              name="service_name"
-              value={fields.service_name}
+              name="client_secret"
+              value={fields.client_secret}
               placeholder="Secret Key"
               onChange={handleInputChange}
               className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 ${

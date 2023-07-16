@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import RegistrationForm from "./pages/Register";
 import MedicalServices from "./pages/MedicalServices";
 import Monitoring from "./pages/Monitoring";
+import CreateHealthService from "./pages/CreateHealthService";
 
 import {
   createBrowserRouter,
@@ -61,12 +62,16 @@ function App() {
     element: <MedicalServices/>
   },
   {
-    path: "/dashboard-worker",
+    path: "/dashboard-worker/:id",
     element: <HomePage/>,
   },
   {
     path: "/monitoring",
     element: <Monitoring/>,
+  },
+  {
+    path: "/create-healthservice",
+    element: <CreateHealthService/>,
   },
 ]);
 

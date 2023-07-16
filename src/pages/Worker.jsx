@@ -7,10 +7,12 @@ const WorkerList = () => {
 
   // const location = useLocation()
   // const connection_id = location.state.connectionId
-  const [workers, setWorkers] = useState([
-    { _id: 'kmzway87aa', service_name: "Test", table_name: "DB name", is_running: true },
-    { _id: 'kmzwayaw1aa', service_name: "Test 2", table_name: "DB name 2", is_running: false },
-  ]);
+  // const [workers, setWorkers] = useState([
+  //   { _id: 'kmzway87aa', service_name: "Test", table_name: "DB name", is_running: true },
+  //   { _id: 'kmzwayaw1aa', service_name: "Test 2", table_name: "DB name 2", is_running: false },
+  // ]);
+
+  const [workers, setWorkers] = useState([]);
   const { isLoading, data, error, fetchData } = UseApiCall();
 
   const handleFetchWorker = async () => {

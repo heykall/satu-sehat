@@ -33,9 +33,16 @@ const ConnectForm = () => {
     if (Object.keys(validationErrors).length === 0) {
       const dataFetch = await fetchData(import.meta.env.VITE_BASE_URL + '/try-connection','post',fields)  
       if (dataFetch === 'connected to external DB') {
-        const dataSecondFetch = await fetchData(import.meta.env.VITE_BASE_URL + '/data-integration','post',fields)
-        localStorage.setItem('user', JSON.stringify(dataSecondFetch))
-        navigate('map-database', { user: dataSecondFetch })
+        fetchData(import.meta.env.VITE_BASE_URL + '/external-db?healthcare_id=' + localStorage.getItem('id'),'post',fields, {access_token : JSON.parse(localStorage.getItem('user-token'))}).then(
+          ({data}) => {
+            navigate('/dashboard-worker/' + localStorage.getItem('id'))
+          }
+        )
+        .catch(e => {
+          console.log(e);
+        })
+        // localStorage.setItem('user', JSON.stringify(dataSecondFetch))
+        // navigate('map-database', { user: dataSecondFetch })
       }
     } else {
       setErrors(validationErrors);

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiUsers, FiPackage, FiMap, FiDatabase } from 'react-icons/fi';
 import { MdOutlineMonitorHeart } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate()
   const [hoveredCard, setHoveredCard] = useState(null);
+  let { id } = useParams();
 
   const handleCardHover = (card) => {
     setHoveredCard(card);
@@ -28,6 +29,10 @@ const HomePage = () => {
 
   const renderCardMenu = (icon, label, card) => {
     const isHovered = hoveredCard === card;
+
+  useEffect(() => {
+    localStorage.setItem('id', id)
+  },[])
 
     return (
       <div
