@@ -70,9 +70,11 @@ const TableComponent = () => {
   };
 
   const handleChildStateChange = (childState) => {
+    // console.log(childState);
     setSourceFields(childState.data);
-    setConnectionId(childState.user.data._id);
-    setTempData([]);
+    // console.log(sourceFields, 'ini source field');
+    // setConnectionId(childState.user.data._id);
+    // setTempData();
   };
 
   const handleSelectedCategory = (selected) => {
@@ -130,18 +132,168 @@ const TableComponent = () => {
   };
 
   const handleSave = async () => {
-    var final = tempData.map((field, index) => {
-      return { [field.field]: field.resourceCategory.concat('.' + field.selectedResourceField) };
-    });
-    console.log(final);
-
-    let dataSend = { connection_id: connectionId, table_name: '', fields: final };
-
-    const dataFetch = await fetchData(import.meta.env.VITE_BASE_URL + '/data-migration', 'post', dataSend);
-    if (dataFetch) {
-      setFetchMessage('Data successfully fetched!');
-      setShowModal(true);
+    const dataSchema = {
+      "schema": [
+        {
+          "patient": [
+            {
+              "kd_kab": "Patient.gender"
+            },
+            {
+              "tgl_daftar": "HealthcareService.active"
+            },
+            {
+              "suku_bangsa": "Extensions.suku_bangsa"
+            },
+            {
+              "bahasa_pasien": "Patient.birthDate"
+            },
+            {
+              "cacat_fisik": "Extensions.cacat_fisik"
+            },
+            {
+              "tgl_lahir": "Patient.birthDate"
+            },
+            {
+              "kd_kel": "Extensions.kd_kel"
+            },
+            {
+              "kd_prop": "Extensions.kd_prop"
+            },
+            {
+              "kd_kec": "Extensions.kd_kec"
+            },
+            {
+              "stts_nikah": "Patient.maritalStatus.coding.code"
+            },
+            {
+              "agama": "Extensions.agama"
+            },
+            {
+              "no_tlp": "Patient.telecom.use"
+            },
+            {
+              "umur": "Patient.birthDate"
+            },
+            {
+              "pnd": "Extensions.pnd"
+            },
+            {
+              "keluarga": "Patient.contact.name.family"
+            },
+            {
+              "namakeluarga": "Extensions.namakeluarga"
+            },
+            {
+              "kd_pj": "Extensions.kd_pj"
+            },
+            {
+              "no_peserta": "Extensions.no_peserta"
+            },
+            {
+              "pekerjaanpj": "Extensions.pekerjaanpj"
+            },
+            {
+              "alamatpj": "Extensions.alamatpj"
+            },
+            {
+              "kelurahanpj": "Extensions.kelurahanpj"
+            },
+            {
+              "kecamatanpj": "Extensions.kecamatanpj"
+            },
+            {
+              "kabupatenpj": "Extensions.kabupatenpj"
+            },
+            {
+              "perusahaan_pasien": "Extensions.perusahaan_pasien"
+            },
+            {
+              "email": "Extensions.email"
+            },
+            {
+              "nip": "Extensions.nip"
+            },
+            {
+              "no_rkm_medis": "Extensions.no_rkm_medis"
+            },
+            {
+              "propinsipj": "Extensions.propinsipj"
+            },
+            {
+              "nm_pasien": "Extensions.nm_pasien"
+            },
+            {
+              "no_ktp": "Extensions.no_ktp"
+            },
+            {
+              "jk": "Extensions.jk"
+            },
+            {
+              "tmp_lahir": "Patient.address.use"
+            },
+            {
+              "nm_ibu": "Patient.contact.name.family"
+            },
+            {
+              "alamat": "Patient.address.use"
+            },
+            {
+              "gol_darah": "Extensions.gol_darah"
+            },
+            {
+              "pekerjaan": "Extensions.pekerjaan"
+            }
+          ]
+        },
+        {
+          "medication": [
+              {
+                "prioritas": "Patient.identifier.system"
+              },
+              {
+                "no_rawat": "Patient.identifier.system"
+              },
+              {
+                "kd_penyakit": "Patient.identifier.system"
+              },
+              {
+                "status": "Patient.identifier.system"
+              },
+              {
+                "status_penyakit": "Extensions.status_penyakit"
+              }
+            ]
+        }
+      ]
     }
+
+    fetchData(
+      import.meta.env.VITE_BASE_URL + "/schema?healthcare_id=" + localStorage.getItem('id'),
+      "post",
+      dataSchema,
+      {
+          access_token: JSON.parse(localStorage.getItem('user-token'))
+      }
+    ).then(({data}) => {
+      console.log(data);
+      navigate('/dashboard-worker/' + localStorage.getItem('id'))
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+    // var final = tempData.map((field, index) => {
+    //   return { [field.field]: field.resourceCategory.concat('.' + field.selectedResourceField) };
+    // });
+    // console.log(final);
+
+    // let dataSend = { connection_id: connectionId, table_name: '', fields: final };
+    // console.log(dataSend);
+    // const dataFetch = await fetchData(import.meta.env.VITE_BASE_URL + '/data-migration', 'post', dataSend);
+    // if (dataFetch) {
+    //   setFetchMessage('Data successfully fetched!');
+    //   setShowModal(true);
+    // }
   };
 
   useEffect(() => {
@@ -156,8 +308,7 @@ const TableComponent = () => {
       setTempData(newMap)
       console.log(newMap);
     }
-    console.log(sourceFields);
-  }, []);
+  }, [sourceFields]);
 
   if (isLoading) {
     return <Loading message={'Fetching the Database Table...'} />;
@@ -166,7 +317,7 @@ const TableComponent = () => {
       <>
         <div className="absolute top-0 right-0">
           <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Worker A</button>
-          <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Database Puskesmas Kalibata</button>
+          <button className="m-2 bg-gray-500 text-sm text-white px-2 py-1">Logout</button>
         </div>
         {showModal && <SuccessModal message={fetchMessage} onClose={handleCloseModal} />}
         <div className="flex flex-row mb-4">

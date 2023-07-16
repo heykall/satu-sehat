@@ -2,45 +2,9 @@ import React, { useState } from "react";
 
 const Monitoring = () => {
   const [data, setData] = useState([
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
-    { resourceId: 1, resourceType: "Type A", status: "Active" },
-    { resourceId: 2, resourceType: "Type B", status: "Inactive" },
-    { resourceId: 3, resourceType: "Type C", status: "Active" },
+    { "resource_id": "e0abf064-e7f4-4e67-88ac-6c9c1061e137", "resource_type": "Patient", "status": "Success" },
+      { "resource_id": "4a8d33d8-9f8b-4e85-9f18-8d6f36b9eb0e", "resource_type": "Patient", "status": "Success" },
+      { "resource_id": "b68df5b0-8939-468e-9abf-32a2d994e24d", "resource_type": "Patient", "status": "Failed" }
     // Add more data here
   ]);
 
@@ -127,8 +91,8 @@ const Monitoring = () => {
               key={index}
               className={index % 2 === 0 ? "bg-teal-100" : "bg-teal-200"}
             >
-              <td className="py-2 px-4">{item.resourceId}</td>
-              <td className="py-2 px-4">{item.resourceType}</td>
+              <td className="py-2 px-4">{item.resource_id}</td>
+              <td className="py-2 px-4">{item.resource_type}</td>
               <td className="py-2 px-4">{item.status}</td>
             </tr>
           ))}

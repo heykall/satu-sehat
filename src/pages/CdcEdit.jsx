@@ -89,7 +89,7 @@ const CdcEdit = () => {
       <>
         <div className="absolute top-0 right-0">
           <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Worker A</button>
-          <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Database Puskesmas Kalibata</button>
+          <button className="m-2 bg-gray-500 text-sm text-white px-2 py-1">Logout</button>
         </div>
         {error && (
           <div

@@ -56,7 +56,7 @@ const HomePage = () => {
       <div className="flex flex-col items-center max-w-screen">
         <div className="absolute top-0 right-0">
           <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Worker A</button>
-          <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">Database Puskesmas Kalibata</button>
+          <button className="m-2 bg-gray-500 text-sm text-white px-2 py-1">Logout</button>
         </div>
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Satu Sehat Adapter</h1>
         <div className="relative bg-teal-200 p-4 rounded-lg shadow-lg">

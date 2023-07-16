@@ -69,7 +69,7 @@ const WorkerList = () => {
           Worker A
         </button>
         <button className="m-2 bg-teal-500 text-sm text-white px-2 py-1">
-          Database Puskesmas Kalibata
+          Logout
         </button>
       </div>
       <div className="absolute top-0 right-0 mt-12">
