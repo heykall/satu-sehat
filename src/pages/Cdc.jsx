@@ -59,9 +59,9 @@ const Cdc = () => {
     return errors;
   };
 
-  useEffect(() => {
-    console.log(fields);
-  }, [data, error, isLoading, fields]);
+  // useEffect(() => {
+  //   console.log(fields);
+  // }, [data, error, isLoading, fields]);
 
   if (isLoading) {
     return <Loading message={'Creating worker..'} />;

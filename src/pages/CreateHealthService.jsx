@@ -24,18 +24,20 @@ const CreateHealthService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (Object.keys(validationErrors).length === 0) {
-    // fetchData(
-    //   import.meta.env.VITE_BASE_URL + "/login",
-    //   "post",
-    //   healthService
-    // )
-    // .then(({data}) => {
-    //     console.log(data);
-    // })
-    // .catch((e) => {
-    //     console.log(e);
-    // })
+    fetchData(
+        import.meta.env.VITE_BASE_URL + "/healthcare",
+        "post",
+        healthService,
+        {
+            access_token: JSON.parse(localStorage.getItem('user-token'))
+        }
+      ).then(({data}) => {
+        console.log(data);
+        navigate('/medical-services/')
+      })
+      .catch((e) => {
+        console.log(e)
+      })
     
     console.log(healthService);
   };

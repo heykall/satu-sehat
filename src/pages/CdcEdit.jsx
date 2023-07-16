@@ -2,22 +2,18 @@ import React, { useEffect, useState } from 'react';
 import Loading from '../components/Loading';
 import Toast from '../components/Toast';
 import UseApiCall from '../utils/UseApiCall';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CdcEdit = () => {
+  const {id} = useParams()
   const navigate = useNavigate();
   const { isLoading, data, error, fetchData } = UseApiCall();
   const [errors, setErrors] = useState({});
   
   const [fields, setFields] = useState({
-    service_name: '',
-    db_name: '',
-    host: '',
-    port: '',
-    username: '',
-    password: '',
-    time: '',
-    customTime: '',
+    name: '',
+    schedule: '',
+    is_running: ''
   });
 
   const handleInputChange = (e) => {
@@ -30,14 +26,24 @@ const CdcEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(fields);
-      console.log('masuk');
-    } else {
-      setErrors(validationErrors);
-    }
+    fetchData(
+      import.meta.env.VITE_BASE_URL + "/worker/" + id + '?healthcare_id=' + localStorage.getItem('id'),
+      "put",
+      fields,
+      {
+          access_token: JSON.parse(localStorage.getItem('user-token'))
+      }
+    ).then(({data}) => {
+      navigate('/workers')
+    })
+    .catch((e) => {
+      console.log(e)
+    })
   };
+
+  const handleOnOffButton = () => {
+    setFields({...fields, is_running: !fields.is_running})
+  }
 
   const validateForm = () => {
     const errors = {};
@@ -59,6 +65,22 @@ const CdcEdit = () => {
   useEffect(() => {
     console.log(fields);
   }, [data, error, isLoading, fields]);
+
+  useEffect(() => {
+    fetchData(
+        import.meta.env.VITE_BASE_URL + "/worker/" + id + '?healthcare_id=' + localStorage.getItem('id'),
+        "get",
+        null,
+        {
+            access_token: JSON.parse(localStorage.getItem('user-token'))
+        }
+      ).then(({data}) => {
+        setFields(data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+}, [])
 
   if (isLoading) {
     return <Loading message={'Connecting to Database...'} />;
@@ -99,8 +121,8 @@ const CdcEdit = () => {
           <form className="flex flex-col space-y-4 w-80" onSubmit={handleSubmit}>
             <input
               type="text"
-              name="service_name"
-              value={fields.service_name}
+              name="name"
+              value={fields.name}
               placeholder="Worker Name"
               onChange={handleInputChange}
               className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 ${
@@ -112,8 +134,8 @@ const CdcEdit = () => {
             )}
             <div className="relative w-80">
               <select
-                name="time"
-                value={fields.time}
+                name="schedule"
+                value={fields.schedule}
                 onChange={handleInputChange}
                 className="px-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
@@ -168,9 +190,14 @@ const CdcEdit = () => {
               Save
             </button>
           </form>
-          <button className="flex flex-col items-center space-y-4 w-80 mt-10 px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
+          {
+            fields.is_running ? <button onClick={handleOnOffButton} className="flex flex-col items-center space-y-4 w-80 mt-10 px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">
             Turn Off Worker
           </button>
+          : <button onClick={handleOnOffButton} className="flex flex-col items-center space-y-4 w-80 mt-10 px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-600">
+          Turn On Worker
+          </button>
+          }
         </div>
       </>
     );

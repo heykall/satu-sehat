@@ -44,7 +44,7 @@ const WorkerList = () => {
       handleFetchWorker();
     }
     console.log(workers);
-  }, [workers]);
+  }, []);
 
   return (
     <>
