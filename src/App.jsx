@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import RegistrationForm from "./pages/Register";
 import MedicalServices from "./pages/MedicalServices";
+import Monitoring from "./pages/Monitoring";
 
 import {
   createBrowserRouter,
@@ -58,6 +59,14 @@ function App() {
   {
     path:"/medical-services",
     element: <MedicalServices/>
+  },
+  {
+    path: "/dashboard-worker",
+    element: <HomePage/>,
+  },
+  {
+    path: "/monitoring",
+    element: <Monitoring/>,
   },
 ]);
 

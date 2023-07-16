@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiUsers, FiPackage, FiMap, FiDatabase } from 'react-icons/fi';
+import { MdOutlineMonitorHeart } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
@@ -12,14 +13,16 @@ const HomePage = () => {
 
   const handleCardClick = (card) => {
     if (card === 'cdc') {
-      navigate('workers')
+      navigate('/workers')
     } else if (card === 'data-integration') {
-      navigate('data-integration')
+      navigate('/data-integration')
       console.log('Data Integration Tool clicked');
     } else if (card === 'data-mapping') {
       navigate('/map-database')
     } else if (card === 'database') {
       navigate('/database')
+    } else if (card === 'monitoring') {
+      navigate('/monitoring')
     }
   };
 
@@ -57,6 +60,7 @@ const HomePage = () => {
             {renderCardMenu(<FiPackage />, 'Data Integration Tool', 'data-integration')}
             {renderCardMenu(<FiMap />, 'Data Mapping Tools', 'data-mapping')}
             {renderCardMenu(<FiDatabase />, 'Database Connect', 'database')}
+            {renderCardMenu(<MdOutlineMonitorHeart />, 'Monitoring', 'monitoring')}
           </div>
         </div>
       </div>
