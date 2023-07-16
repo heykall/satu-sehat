@@ -16,11 +16,19 @@ const WorkerList = () => {
   const { isLoading, data, error, fetchData } = UseApiCall();
 
   const handleFetchWorker = async () => {
-    const data = await fetchData(
-      import.meta.env.VITE_BASE_URL + "/capture-workers/" + connection_id,
-      "get"
-    );
-    setWorkers(data.data);
+    fetchData(
+      import.meta.env.VITE_BASE_URL + '/worker?healthcare_id=' + localStorage.getItem('id'),
+      "get",
+      null,
+      {
+        access_token: JSON.parse(localStorage.getItem('user-token'))
+      }
+    ).then(({data}) => {
+      setWorkers(data)
+    })
+    .catch(e => {
+      console.log(e);
+    })
   };
 
   const handleCreateWorker = () => {
@@ -90,8 +98,8 @@ const WorkerList = () => {
               {worker.is_running === false && (
                 <div className="absolute top-2 left-2 w-4 h-4 bg-red-400 rounded-full"></div>
               )}
-              <h3 className="text-lg font-semibold">{worker.service_name}</h3>
-              <p className="text-sm">Table: {worker.table_name}</p>
+              <h3 className="text-lg font-semibold">{worker.name}</h3>
+              {/* <p className="text-sm">Table: {worker.table_name}</p> */}
             </div>
           ))
         ) : (

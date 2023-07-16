@@ -10,14 +10,9 @@ const Cdc = () => {
   const [errors, setErrors] = useState({});
   
   const [fields, setFields] = useState({
-    service_name: '',
-    db_name: '',
-    host: '',
-    port: '',
-    username: '',
-    password: '',
-    time: '',
-    customTime: '',
+    name: '',
+    schedule: '',
+    is_running: false
   });
 
   const handleInputChange = (e) => {
@@ -30,13 +25,21 @@ const Cdc = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(fields);
-      console.log('masuk');
-    } else {
-      setErrors(validationErrors);
-    }
+    const submitField = {...fields, schedule: Number(fields.schedule)}
+    fetchData(
+      import.meta.env.VITE_BASE_URL + "/worker?healthcare_id=" + localStorage.getItem('id'),
+      "post",
+      submitField,
+      {
+          access_token: JSON.parse(localStorage.getItem('user-token'))
+      }
+    ).then(({data}) => {
+      console.log(data);
+      navigate('/workers/')
+    })
+    .catch((e) => {
+      console.log(e)
+    })
   };
 
   const validateForm = () => {
@@ -99,8 +102,8 @@ const Cdc = () => {
           <form className="flex flex-col space-y-4 w-80" onSubmit={handleSubmit}>
             <input
               type="text"
-              name="service_name"
-              value={fields.service_name}
+              name="name"
+              value={fields.name}
               placeholder="Worker Name"
               onChange={handleInputChange}
               className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 ${
@@ -112,15 +115,36 @@ const Cdc = () => {
             )}
             <div className="relative w-80">
               <select
-                name="time"
-                value={fields.time}
+                name="schedule"
+                value={fields.schedule}
                 onChange={handleInputChange}
                 className="px-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               >
                 <option value="">Select Time</option>
-                <option value="00:00">00:00</option>
-                <option value="01:00">01:00</option>
-                <option value="02:00">02:00</option>
+                <option value="1">01:00</option>
+                <option value="2">02:00</option>
+                <option value="3">03:00</option>
+                <option value="4">04:00</option>
+                <option value="5">05:00</option>
+                <option value="6">06:00</option>
+                <option value="7">07:00</option>
+                <option value="8">08:00</option>
+                <option value="9">09:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+                <option value="19">19:00</option>
+                <option value="20">20:00</option>
+                <option value="21">21:00</option>
+                <option value="22">22:00</option>
+                <option value="23">23:00</option>
+                <option value="24">24:00</option>
                 {/* Add more hours as needed */}
                 <option value="custom">Custom Time</option>
               </select>
