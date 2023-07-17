@@ -1,5 +1,6 @@
 {
   "name": "satu-sehat",
+  "proxy": "http://128.199.146.91:8000",
   "private": true,
   "version": "0.0.0",
   "type": "commonjs",
