@@ -52,4 +52,5 @@ const UseApiCall = () => {
   return { isLoading, data, error, fetchData };
 };
 
+// 
 export default UseApiCall;
