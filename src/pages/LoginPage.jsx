@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import UseApiCall from "../utils/UseApiCall";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -32,23 +35,44 @@ const LoginPage = () => {
         localStorage.setItem('user-token', JSON.stringify(data.token))
         localStorage.setItem('account-type', JSON.stringify(data.account_type))
         if(data.account_type === 'association') {
-            navigate('/medical-services')
+          MySwal.fire({
+            width: '300px',
+            icon: 'success',
+            title: 'Login Success',
+            showConfirmButton: true, // Show the "OK" button
+            confirmButtonColor: '#38B2AC', // Set the "OK" button color to teal-500
+            buttonsStyling: false,
+            customClass: {
+              confirmButton: 'px-6 py-2 rounded-md text-white font-semibold bg-teal-500 hover:bg-teal-600', // Tailwind CSS classes for the "OK" button
+            },
+          }).then(success => navigate('/medical-services'))
         } else {
-            navigate('/dashboard-worker')
+          MySwal.fire({
+            width: '300px',
+            icon: 'success',
+            title: 'Login Success',
+            showConfirmButton: true, // Show the "OK" button
+            confirmButtonColor: '#38B2AC', // Set the "OK" button color to teal-500
+            buttonsStyling: false,
+            customClass: {
+              confirmButton: 'px-6 py-2 rounded-md text-white font-semibold bg-teal-500 hover:bg-teal-600', // Tailwind CSS classes for the "OK" button
+            },
+          }).then(success => navigate('/dashboard-worker'))
         }
     })
     .catch((e) => {
-        console.log(e);
+      MySwal.fire({
+        width: '300px',
+        icon: 'error',
+        title: 'Login Failed',
+        showConfirmButton: true,
+        confirmButtonColor: '#38B2AC',
+        buttonsStyling: false, 
+        customClass: {
+          confirmButton: 'px-6 py-2 rounded-md text-white font-semibold bg-teal-500 hover:bg-teal-600', // Tailwind CSS classes for the "OK" button
+        },
+      })
     })
-    //   if (dataFetch === 'connected to external DB') {
-    //     const dataSecondFetch = await fetchData(import.meta.env.VITE_BASE_URL + '/data-integration','post',fields)
-    //     localStorage.setItem('user', JSON.stringify(dataSecondFetch))
-    //     navigate('map-database', { user: dataSecondFetch })
-    //   }
-    // } else {
-    //   setErrors(validationErrors);
-    // }
-    console.log(credential);
   };
 
   useEffect(() => {
